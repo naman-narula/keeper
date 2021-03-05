@@ -35,6 +35,6 @@ app.use("/api",homeRoute);
 
 
 
-app.listen(9000||process.env.PORT,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("Server running ");
 })
