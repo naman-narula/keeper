@@ -7,7 +7,7 @@ const cookieParser=require('cookie-parser');
 const cors=require('cors');
 const morgan =require('morgan');
 const path=require('path');
-mongoogse.connect("'mongodb://localhost:27017/keeperdb",{
+mongoogse.connect(process.env.DB_String,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
