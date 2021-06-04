@@ -6,7 +6,8 @@ const bodyParser=require('body-parser');
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
 const morgan =require('morgan');
-mongoogse.connect("'mongodb://localhost:27017/test",{
+const path=require('path');
+mongoogse.connect("'mongodb://localhost:27017/keeperdb",{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -17,10 +18,11 @@ mongoogse.connect("'mongodb://localhost:27017/test",{
   });
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname,'build')))
 
 const registerRoute=require("./routes/register");
 const homeRoute=require("./routes/home");
@@ -30,11 +32,14 @@ const loginRoute=require("./routes/login");
 app.use("/api",registerRoute);
 app.use("/api",loginRoute);
 app.use("/api",homeRoute);
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,'build','index.html'))
+})
 
 
 
 
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT||3000,()=>{
     console.log("Server running ");
 })

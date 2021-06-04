@@ -19,8 +19,8 @@ router.post("/login",(req,res)=>{
            if(result)
            {
                let token=jwt.sign(payload,process.env.jwt_secret,{algorithm:'HS256',expiresIn:'30d'});
-               res.cookie("jwt",token,{httpOnly:true})
-               res.status(200).json("user authorized");
+              
+               res.status(200).json(token);
 
 
            }

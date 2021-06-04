@@ -10,7 +10,7 @@ const User=require("../userSchema/user");
 
 
 module.exports=(req,res,next)=>{
-    let accessToken=req.cookies.jwt;
+    let accessToken=req.headers.token;
  
     if(!accessToken)
     {
@@ -29,6 +29,8 @@ module.exports=(req,res,next)=>{
                     console.log(payload);
                     payload.exp=payload.exp+2592000000;
                     let newToken=jwt.sign(payload,process.env.jwt_secret,{algorithm:'HS256'});
+                    res.locals.token=newToken;
+                    res.locals.email=payload.email;
                     next();
                 }
             });

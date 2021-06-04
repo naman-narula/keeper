@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const bcrypt=require('bcrypt');
 const User=require('../userSchema/user');
+const jwt=require('jsonwebtoken');
 
 router.post("/register",(req,res)=>{
     
@@ -18,10 +19,14 @@ router.post("/register",(req,res)=>{
     newUser.save((err)=>{
         if(!err)
         {
-            res.status(200).json("user Saved");
+            let payload={email:req.body.email}
+            const token=jwt.sign(payload,process.env.jwt_secret,{algorithm:'HS256',expiresIn:'30d'})
+            res.status(200).json(token);
         }
         else{
+            console.log(err);
             res.status(400).json("user exists or incomplete data");
+            
         }
     });
     
