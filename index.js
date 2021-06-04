@@ -6,7 +6,7 @@ const bodyParser=require('body-parser');
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
 const morgan =require('morgan');
-mongoogse.connect("mongodb+srv://naman:naman@cluster0.4aqoo.mongodb.net/keeperDB?retryWrites=true&w=majority",{
+mongoogse.connect("'mongodb://localhost:27017/test",{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
